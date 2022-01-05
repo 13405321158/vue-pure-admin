@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { VXETable } from "vxe-table";
+import { http } from "/@/utils/http";
 import { useRouter } from "vue-router";
 import { initRouter } from "/@/router/utils";
 import { storageSession } from "/@/utils/storage";
@@ -38,16 +40,48 @@ const currentWeek = computed(() => {
   }
 });
 
-let user = ref("admin");
-let pwd = ref("123456");
+let user = ref("superman");
+let pwd = ref("1qaz2WSX?><");
 
 const onLogin = (): void => {
-  storageSession.setItem("info", {
-    username: "admin",
-    accessToken: "eyJhbGciOiJIUzUxMiJ9.test"
-  });
-  initRouter("admin").then(() => {});
-  router.push("/");
+  if (user.value.trim().length === 0) {
+    VXETable.modal.message({ content: "请输入用户名", status: "error" });
+    return;
+  }
+  if (pwd.value.trim().length === 0) {
+    VXETable.modal.message({ content: "请输入密码", status: "error" });
+    return;
+  }
+
+
+  http
+    .request("post", "/author/oauth/token", {
+      params: {
+        username: user.value,
+        password: pwd.value,
+        grant_type: "password",
+        client_id: user.value,
+        client_secret: pwd.value
+      }
+    })
+    .then(function (obj) {
+      if (obj.success) {
+        storageSession.setItem("info", {
+          username: user.value,
+          userid:obj.data.userInfo.userId,
+          accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9'
+        });
+        initRouter(user.value).then(() => {});//获取菜单
+
+        router.push("/");
+      } else {
+        VXETable.modal.message({ content: obj.msg, status: "error" });
+      }
+    })
+    .catch(function (obj) {
+      VXETable.modal.message({ content: obj.msg, status: "error" });
+    });
+
 };
 
 function onUserFocus() {
