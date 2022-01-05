@@ -1,4 +1,5 @@
 // 根据角色动态生成路由
+// @ts-ignore
 import { MockMethod } from "vite-plugin-mock";
 
 // http://mockjs.com/examples.html#Object
@@ -113,7 +114,7 @@ function setDifAuthority(authority, routes) {
 
 export default [
   {
-    url: "/getAsyncRoutes",
+    url: "/api/getAsyncRoutes",
     method: "get",
     response: ({ query }) => {
       if (query.name === "admin") {
