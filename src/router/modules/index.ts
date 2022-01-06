@@ -20,14 +20,14 @@ import {
 // 原始静态路由（未做任何处理）
 const routes = [
   homeRouter,
-  errorRouter,
-  guideRouter,
-  nestedRouter,
-  externalLink,
-  editorRouter,
-  menuTreeRouter,
-  flowChartRouter,
-  componentsRouter
+  // errorRouter,
+  // guideRouter,
+  // nestedRouter,
+  // externalLink,
+  // editorRouter,
+  // menuTreeRouter,
+  // flowChartRouter,
+  // componentsRouter
 ];
 
 // 导出处理后的静态路由（三级及以上的路由全部拍成二级）

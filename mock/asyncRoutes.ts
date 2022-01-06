@@ -36,75 +36,75 @@ const systemRouter = {
     }
   ]
 };
+//
+// const permissionRouter = {
+//   path: "/permission",
+//   name: "permission",
+//   redirect: "/permission/page/index",
+//   meta: {
+//     title: "menus.permission",
+//     icon: "Lollipop",
+//     i18n: true,
+//     showLink: true,
+//     rank: 3
+//   },
+//   children: [
+//     {
+//       path: "/permission/page/index",
+//       name: "permissionPage",
+//       meta: {
+//         title: "menus.permissionPage",
+//         i18n: true,
+//         showLink: true
+//       }
+//     },
+//     {
+//       path: "/permission/button/index",
+//       name: "permissionButton",
+//       meta: {
+//         title: "menus.permissionButton",
+//         i18n: true,
+//         showLink: true,
+//         authority: []
+//       }
+//     }
+//   ]
+// };
 
-const permissionRouter = {
-  path: "/permission",
-  name: "permission",
-  redirect: "/permission/page/index",
-  meta: {
-    title: "menus.permission",
-    icon: "Lollipop",
-    i18n: true,
-    showLink: true,
-    rank: 3
-  },
-  children: [
-    {
-      path: "/permission/page/index",
-      name: "permissionPage",
-      meta: {
-        title: "menus.permissionPage",
-        i18n: true,
-        showLink: true
-      }
-    },
-    {
-      path: "/permission/button/index",
-      name: "permissionButton",
-      meta: {
-        title: "menus.permissionButton",
-        i18n: true,
-        showLink: true,
-        authority: []
-      }
-    }
-  ]
-};
-
-const tabsRouter = {
-  path: "/tabs",
-  name: "reTabs",
-  redirect: "/tabs/index",
-  meta: {
-    icon: "IF-team-icontabs",
-    title: "menus.hstabs",
-    i18n: true,
-    showLink: true,
-    rank: 8
-  },
-  children: [
-    {
-      path: "/tabs/index",
-      name: "reTabs",
-      meta: {
-        title: "menus.hstabs",
-        showLink: true,
-        i18n: true
-      }
-    },
-    {
-      path: "/tabs/detail",
-      name: "tabDetail",
-      meta: {
-        title: "",
-        showLink: false,
-        i18n: false,
-        dynamicLevel: 3,
-        refreshRedirect: "/tabs/index"
-      }
-    }
-  ]
-};
+// const tabsRouter = {
+//   path: "/tabs",
+//   name: "reTabs",
+//   redirect: "/tabs/index",
+//   meta: {
+//     icon: "IF-team-icontabs",
+//     title: "menus.hstabs",
+//     i18n: true,
+//     showLink: true,
+//     rank: 8
+//   },
+//   children: [
+//     {
+//       path: "/tabs/index",
+//       name: "reTabs",
+//       meta: {
+//         title: "menus.hstabs",
+//         showLink: true,
+//         i18n: true
+//       }
+//     },
+//     {
+//       path: "/tabs/detail",
+//       name: "tabDetail",
+//       meta: {
+//         title: "",
+//         showLink: false,
+//         i18n: false,
+//         dynamicLevel: 3,
+//         refreshRedirect: "/tabs/index"
+//       }
+//     }
+//   ]
+// };
 
 // 添加不同按钮权限到/permission/button页面中
 function setDifAuthority(authority, routes) {
@@ -117,21 +117,21 @@ export default [
     url: "/api/getAsyncRoutes",
     method: "get",
     response: ({ query }) => {
-      if (query.name === "admin") {
+      // if (query.name === "admin") {
         return {
           code: 0,
-          info: [
-            tabsRouter,
-            systemRouter,
-            setDifAuthority("v-admin", permissionRouter)
+          data: [
+            // tabsRouter,
+            systemRouter
+            // setDifAuthority("v-admin", permissionRouter)
           ]
         };
-      } else {
-        return {
-          code: 0,
-          info: [tabsRouter, setDifAuthority("v-test", permissionRouter)]
-        };
-      }
+      // } else {
+      //   return {
+      //     code: 0,
+      //     data: [tabsRouter, setDifAuthority("v-test", permissionRouter)]
+      //   };
+      // }
     }
   }
 ] as MockMethod[];

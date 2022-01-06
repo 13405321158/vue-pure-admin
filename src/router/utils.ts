@@ -106,11 +106,12 @@ const resetRouter = (): void => {
 // 初始化路由
 const initRouter = (name: string) => {
   return new Promise(resolve => {
-    getAsyncRoutes({ name }).then(({ info }) => {
-      if (info.length === 0) {
-        usePermissionStoreHook().changeSetting(info);
+    getAsyncRoutes({ name }).then(({ data }) => {
+
+      if (data.length === 0) {
+        usePermissionStoreHook().changeSetting(data);
       } else {
-        formatFlatteningRoutes(addAsyncRoutes(info)).map(
+        formatFlatteningRoutes(addAsyncRoutes(data)).map(
           (v: RouteRecordRaw) => {
             // 防止重复添加路由
             if (
@@ -129,7 +130,7 @@ const initRouter = (name: string) => {
             resolve(router);
           }
         );
-        usePermissionStoreHook().changeSetting(info);
+        usePermissionStoreHook().changeSetting(data);
       }
       router.addRoute({
         path: "/:pathMatch(.*)",
