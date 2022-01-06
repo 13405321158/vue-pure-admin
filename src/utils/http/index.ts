@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import Axios, {AxiosInstance, AxiosRequestConfig} from "axios";
 import {
   resultType,
   PureHttpError,
@@ -8,12 +8,12 @@ import {
 } from "./types.d";
 import qs from "qs";
 import NProgress from "../progress";
-import { loadEnv } from "@build/index";
-import { getToken } from "/@/utils/auth";
-import { useUserStoreHook } from "/@/store/modules/user";
+import {loadEnv} from "@build/index";
+import {sha256} from "js-sha256";
+import {storageSession} from "/@/utils/storage";
 
 // 加载环境变量 VITE_PROXY_DOMAIN（开发环境）  VITE_PROXY_DOMAIN_REAL（打包后的线上环境）
-const { VITE_PROXY_DOMAIN, VITE_PROXY_DOMAIN_REAL } = loadEnv();
+const {VITE_PROXY_DOMAIN, VITE_PROXY_DOMAIN_REAL} = loadEnv();
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
 const defaultConfig: AxiosRequestConfig = {
@@ -30,7 +30,7 @@ const defaultConfig: AxiosRequestConfig = {
     "X-Requested-With": "XMLHttpRequest"
   },
   // 数组格式参数序列化
-  paramsSerializer: params => qs.stringify(params, { indices: false })
+  paramsSerializer: params => qs.stringify(params, {indices: false})
 };
 
 class PureHttp {
@@ -38,6 +38,7 @@ class PureHttp {
     this.httpInterceptorsRequest();
     this.httpInterceptorsResponse();
   }
+
   // 初始化配置对象
   private static initConfig: PureHttpRequestConfig = {};
 
@@ -60,26 +61,16 @@ class PureHttp {
           PureHttp.initConfig.beforeRequestCallback($config);
           return $config;
         }
-        const token = getToken();
-        if (token) {
-          const data = JSON.parse(token);
-          const now = new Date().getTime();
-          const expired = parseInt(data.expires) - now <= 0;
-          if (expired) {
-            // token过期刷新
-            useUserStoreHook()
-              .refreshToken(data)
-              .then((res: resultType) => {
-                config.headers["Authorization"] = "Bearer " + res.accessToken;
-                return $config;
-              });
-          } else {
-            config.headers["Authorization"] = "Bearer " + data.accessToken;
-            return $config;
-          }
-        } else {
-          return $config;
+        let uid3 = new Date().getTime();
+        let uid2 = Math.round(Math.random() * 999999);
+        let uid1 = storageSession.getItem("info")?.userid;
+        if (typeof uid1 != "undefined") {
+          config.headers["uid1"] = uid1;
+          config.headers["uid2"] = uid2;
+          config.headers["uid3"] = uid3;
+          config.headers["uid4"] = sha256(uid1 + uid2 + uid3);
         }
+        return $config;
       },
       error => {
         return Promise.reject(error);
