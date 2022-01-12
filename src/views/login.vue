@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import md5 from 'js-md5';
 import { ref, computed } from "vue";
 import { VXETable } from "vxe-table";
 import { http } from "/@/utils/http";
@@ -55,13 +56,13 @@ const onLogin = (): void => {
 
 
   http
-    .request("post", "/author/oauth/token", {
+    .post("/author/oauth/token", {
       params: {
         username: user.value,
-        password: pwd.value,
+        password: md5(pwd.value),
         grant_type: "password",
         client_id: user.value,
-        client_secret: pwd.value
+        client_secret: md5(pwd.value)
       }
     })
     .then(function (obj) {

@@ -1,6 +1,5 @@
-import Axios, {AxiosInstance, AxiosRequestConfig} from "axios";
+import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import {
-  resultType,
   PureHttpError,
   RequestMethods,
   PureHttpResoponse,
@@ -8,12 +7,12 @@ import {
 } from "./types.d";
 import qs from "qs";
 import NProgress from "../progress";
-import {loadEnv} from "@build/index";
-import {sha256} from "js-sha256";
-import {storageSession} from "/@/utils/storage";
+import { loadEnv } from "@build/index";
+import { sha256 } from "js-sha256";
+import { storageSession } from "/@/utils/storage";
 
 // 加载环境变量 VITE_PROXY_DOMAIN（开发环境）  VITE_PROXY_DOMAIN_REAL（打包后的线上环境）
-const {VITE_PROXY_DOMAIN, VITE_PROXY_DOMAIN_REAL} = loadEnv();
+const { VITE_PROXY_DOMAIN, VITE_PROXY_DOMAIN_REAL } = loadEnv();
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
 const defaultConfig: AxiosRequestConfig = {
@@ -28,7 +27,7 @@ const defaultConfig: AxiosRequestConfig = {
     "X-Requested-With": "XMLHttpRequest"
   },
   // 数组格式参数序列化
-  paramsSerializer: params => qs.stringify(params, {indices: false})
+  paramsSerializer: params => qs.stringify(params, { indices: false })
 };
 
 class PureHttp {
@@ -60,9 +59,9 @@ class PureHttp {
           return $config;
         }
         // 后台请求接口 header 添加 4个参数
-        let uid3 = new Date().getTime();
-        let uid2 = Math.round(Math.random() * 999999);
-        let uid1 = storageSession.getItem("info")?.userid;
+        const uid3 = new Date().getTime();
+        const uid2 = Math.round(Math.random() * 999999);
+        const uid1 = storageSession.getItem("info")?.userid;
         if (typeof uid1 != "undefined") {
           config.headers["uid1"] = uid1;
           config.headers["uid2"] = uid2;
