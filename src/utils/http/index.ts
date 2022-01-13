@@ -5,7 +5,8 @@ import {
   PureHttpResoponse,
   PureHttpRequestConfig
 } from "./types.d";
-import qs from "qs";
+import QS from "qs";
+
 import NProgress from "../progress";
 import { loadEnv } from "@build/index";
 import { sha256 } from "js-sha256";
@@ -26,8 +27,7 @@ const defaultConfig: AxiosRequestConfig = {
     "Content-Type": "application/json",
     "X-Requested-With": "XMLHttpRequest"
   },
-  // 数组格式参数序列化
-  paramsSerializer: params => qs.stringify(params, { indices: false })
+  paramsSerializer: params => QS.stringify(params, { indices: false })
 };
 
 class PureHttp {

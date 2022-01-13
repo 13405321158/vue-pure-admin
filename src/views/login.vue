@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import md5 from 'js-md5';
+import md5 from "js-md5";
 import { ref, computed } from "vue";
 import { VXETable } from "vxe-table";
 import { http } from "/@/utils/http";
@@ -54,7 +54,6 @@ const onLogin = (): void => {
     return;
   }
 
-
   http
     .post("/author/oauth/token", {
       params: {
@@ -69,10 +68,10 @@ const onLogin = (): void => {
       if (obj.success) {
         storageSession.setItem("info", {
           username: user.value,
-          userid:obj.data.userInfo.userId,
-          accessToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9'
+          userid: obj.data.userInfo.userId,
+          accessToken: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9"
         });
-        initRouter(user.value).then(() => {});//获取菜单
+        initRouter(user.value).then(() => {}); //获取菜单
 
         router.push("/");
       } else {
@@ -82,7 +81,6 @@ const onLogin = (): void => {
     .catch(function (obj) {
       VXETable.modal.message({ content: obj.msg, status: "error" });
     });
-
 };
 
 function onUserFocus() {

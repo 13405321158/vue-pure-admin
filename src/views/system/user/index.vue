@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from "vue";
+import { http } from "/@/utils/http";
 import { VxeGridProps } from "vxe-table";
-import { http } from "/@/utils/http/ajax";
 
 const dataGrid = reactive({
   border: true,
@@ -21,13 +21,15 @@ const dataGrid = reactive({
     },
     ajax: {
       query: ({ page }) => {
-        const queryParams = Object.assign({}, page);
-        http
-          .post("/api/backend/user/r01", {
-            queryParams
-          })
+        const param = Object.assign(
+          {},
+          { limit: page.pageSize, page: page.currentPage }
+        );
+
+        return http
+          .post("/api/backend/user/r01", { data: param })
           .then(function (obj) {
-            console.info(obj);
+            return obj;
           })
           .catch(function (obj) {
             console.info(obj);

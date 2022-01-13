@@ -6,17 +6,17 @@ import {
   createWebHashHistory,
   RouteRecordNormalized
 } from "vue-router";
-import {router} from "./index";
-import {loadEnv} from "../../build";
+import { router } from "./index";
+import { loadEnv } from "../../build";
 import Layout from "/@/layout/index.vue";
-import {useTimeoutFn} from "@vueuse/core";
-import {RouteConfigs} from "/@/layout/types";
-import {usePermissionStoreHook} from "/@/store/modules/permission";
+import { useTimeoutFn } from "@vueuse/core";
+import { RouteConfigs } from "/@/layout/types";
+import { usePermissionStoreHook } from "/@/store/modules/permission";
 // https://cn.vitejs.dev/guide/features.html#glob-import
 const modulesRoutes = import.meta.glob("/src/views/**/*.{vue,tsx}");
 
 // 动态路由
-import {getMenu} from "/@/api/routes";
+import { getMenu } from "/@/api/routes";
 
 // 按照路由中meta下的rank等级升序来排序路由
 const ascending = (arr: any[]) => {
@@ -96,7 +96,7 @@ const findRouteByPath = (path: string, routes: RouteRecordRaw[]) => {
 // 重置路由
 const resetRouter = (): void => {
   router.getRoutes().forEach(route => {
-    const {name} = route;
+    const { name } = route;
     if (name) {
       router.hasRoute(name) && router.removeRoute(name);
     }
@@ -106,8 +106,7 @@ const resetRouter = (): void => {
 // 初始化路由
 const initRouter = (name: string) => {
   return new Promise(resolve => {
-    getMenu({name}).then(({data}) => {
-
+    getMenu({ name }).then(({ data }) => {
       if (data.length === 0) {
         usePermissionStoreHook().changeSetting(data);
       } else {
@@ -177,7 +176,7 @@ const formatTwoStageRoutes = (routesList: RouteRecordRaw[]) => {
         children: []
       });
     } else {
-      newRoutesList[0].children.push({...v});
+      newRoutesList[0].children.push({ ...v });
     }
   });
   return newRoutesList;
@@ -188,7 +187,7 @@ const handleAliveRoute = (matched: RouteRecordNormalized[], mode?: string) => {
   switch (mode) {
     case "add":
       matched.forEach(v => {
-        usePermissionStoreHook().cacheOperate({mode: "add", name: v.name});
+        usePermissionStoreHook().cacheOperate({ mode: "add", name: v.name });
       });
       break;
     case "delete":
@@ -204,7 +203,7 @@ const handleAliveRoute = (matched: RouteRecordNormalized[], mode?: string) => {
       });
       useTimeoutFn(() => {
         matched.forEach(v => {
-          usePermissionStoreHook().cacheOperate({mode: "add", name: v.name});
+          usePermissionStoreHook().cacheOperate({ mode: "add", name: v.name });
         });
       }, 100);
   }
