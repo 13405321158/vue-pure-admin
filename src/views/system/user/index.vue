@@ -13,6 +13,30 @@ const dataGrid = reactive({
   checkboxConfig: {
     reserve: true
   },
+  toolbarConfig: {
+    buttons: [
+      {
+        code: "add_actived",
+        name: "新增",
+        status: "perfect",
+        icon: "fa fa-plus"
+      },
+      {
+        code: "del_cancel",
+        name: "批量删除",
+        status: "perfect",
+        icon: "fa fa-trash-o"
+      }
+    ],
+    perfect: true,
+    zoom: {
+      iconIn: "fa fa-arrows-alt",
+      iconOut: "fa fa-expand"
+    },
+    custom: {
+      icon: "fa fa-cog"
+    }
+  },
   proxyConfig: {
     seq: true,
     props: {

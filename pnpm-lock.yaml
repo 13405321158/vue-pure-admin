@@ -85,7 +85,7 @@ specifiers:
   vue-router: ^4.0.12
   vue-types: ^4.1.0
   vuedraggable: 4.1.0
-  vxe-table: ^4.1.18
+  vxe-table: ^4.1.19
   wangeditor: ^4.7.9
   xe-utils: ^3.5.2
   xgplayer: 2.28.0
@@ -132,7 +132,7 @@ dependencies:
   vue-router: 4.0.12_vue@3.2.24
   vue-types: 4.1.1_vue@3.2.24
   vuedraggable: 4.1.0_vue@3.2.24
-  vxe-table: 4.1.18_vue@3.2.24+xe-utils@3.5.2
+  vxe-table: registry.npmmirror.com/vxe-table/4.1.19_vue@3.2.24+xe-utils@3.5.2
   wangeditor: 4.7.9
   xe-utils: 3.5.2
   xgplayer: 2.28.0
@@ -5506,16 +5506,6 @@ packages:
       vue: 3.2.24
     dev: false
 
-  /vxe-table/4.1.18_vue@3.2.24+xe-utils@3.5.2:
-    resolution: {integrity: sha512-hiaJv45rl8swU8YrtZVM7UhVMCrlkhxnZKuyjM1zcFhSNhuQWIy7KkewZctk83foAxlTBjEzwGNsXDuWjBW3vQ==}
-    peerDependencies:
-      vue: ^3.2.2
-      xe-utils: ^3.5.0
-    dependencies:
-      vue: 3.2.24
-      xe-utils: 3.5.2
-    dev: false
-
   /wangeditor/4.7.9:
     resolution: {integrity: sha512-x8u/SJQ4pHLp597CzWm/0DrITUGpNaPk4jms03VYSaIt1mSoF5wd+dAxBsfPgmaYrYWx6CZtyGZA4Kv6s1vvlw==}
     dependencies:
@@ -5853,4 +5843,17 @@ packages:
     resolution: {integrity: sha1-C4msFmWD6R75EjZEvTxTNM6dCWY=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/js-sha256/download/js-sha256-0.9.0.tgz}
     name: js-sha256
     version: 0.9.0
+    dev: false
+
+  registry.npmmirror.com/vxe-table/4.1.19_vue@3.2.24+xe-utils@3.5.2:
+    resolution: {integrity: sha512-Vk0UuFlHt2ObbK/nl/G4KWJCxE9hu/1G3AWozMD7dyq0sB2gy5eXPVb3/cwHgLHO4VwoPan5N6eVzb/jzLVOWA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vxe-table/download/vxe-table-4.1.19.tgz}
+    id: registry.npmmirror.com/vxe-table/4.1.19
+    name: vxe-table
+    version: 4.1.19
+    peerDependencies:
+      vue: ^3.2.2
+      xe-utils: ^3.5.0
+    dependencies:
+      vue: 3.2.24
+      xe-utils: 3.5.2
     dev: false
